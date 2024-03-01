@@ -8,8 +8,8 @@ class TopTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      width: 400,
-      padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 30, ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myfood_app/widget/haveaccountornot.dart';
+import 'package:myfood_app/widget/mybutton.dart';
 import 'package:myfood_app/widget/mypasswordtextformfield.dart';
 import 'package:myfood_app/widget/mytextformfield.dart';
 import 'package:myfood_app/widget/toptitle.dart';
@@ -59,71 +61,45 @@ class _LoginState extends State<Login> {
       body: SafeArea(
         child: Builder(
           builder: (context) => Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                
-                TopTitle(subsTitle: "Welcome Back!", title: "Login",),
+                TopTitle(
+                  subsTitle: "Welcome Back!",
+                  title: "Login",
+                ),
                 Center(
                   child: Container(
                     height: 300,
-                    width: 400,
+                    width: double.infinity,
                     color: Colors.white12,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        MyTextFormField(title: "Email", controller:email,),
+                        MyTextFormField(
+                          title: "Email",
+                          controller: email,
+                        ),
                         SizedBox(
                           height: 10,
                         ),
-                        MyPasswordTextField(title: "Password",controller: password),
-                       ],
-                     ),
-                   ),
-                 ),
-                Container(
-                  height: 60,
-                  width: 400,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
-                    onPressed: () {
-                      validation(context);
-                    },
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                      ),
+                        MyPasswordTextField(
+                            title: "Password", controller: password),
+                      ],
                     ),
                   ),
+                ),
+                MyButton(
+                  name: "Login",
+                  onPressed: () {
+                    validation(context);
+                  },
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't Have Account? ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                      ),
-                    ),
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    )
-                  ],
-                ),
+                HaveAccountOrNot(
+                    title: "I Don't Have An Account", subTitle: "Sign Up"),
               ],
             ),
           ),
