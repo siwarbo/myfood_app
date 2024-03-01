@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myfood_app/widget/mypasswordtextformfield.dart';
+import 'package:myfood_app/widget/mytextformfield.dart';
+import 'package:myfood_app/widget/toptitle.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -58,32 +61,8 @@ class _LoginState extends State<Login> {
           builder: (context) => Container(
             child: Column(
               children: [
-                Container(
-                  height: 200,
-                  width: 400,
-                  padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Login",
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "Welcome Back!",
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                
+                TopTitle(subsTitle: "Welcome Back!", title: "Login",),
                 Center(
                   child: Container(
                     height: 300,
@@ -92,38 +71,15 @@ class _LoginState extends State<Login> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextFormField(
-                          controller: email,
-                          decoration: InputDecoration(
-                            fillColor: Colors.pink,
-                            filled: true,
-                            hintText: "Email",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
+                        MyTextFormField(title: "Email", controller:email,),
                         SizedBox(
                           height: 10,
                         ),
-                        TextFormField(
-                          controller: password,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            fillColor: Colors.pink,
-                            filled: true,
-                            hintText: "Password",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                        MyPasswordTextField(title: "Password",controller: password),
+                       ],
+                     ),
+                   ),
+                 ),
                 Container(
                   height: 60,
                   width: 400,
