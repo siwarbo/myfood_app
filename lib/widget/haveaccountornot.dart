@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
 
 class HaveAccountOrNot extends StatelessWidget {
-  final String title, subTitle;
-  HaveAccountOrNot({required this.title, required this.subTitle});
+  final String title;
+  final String subTitle;
+  final VoidCallback onTap;
+
+  HaveAccountOrNot({
+    required this.title,
+    required this.subTitle,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      // Wrap with SingleChildScrollView
-      scrollDirection: Axis.horizontal, // Set scroll direction to horizontal
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
+    return GestureDetector(
+      onTap: onTap,
+      child: RichText(
+        text: TextSpan(
+          text: title,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 16.0,
           ),
-          SizedBox(width: 5), // Add spacing between texts
-          Text(
-            subTitle,
-            style: TextStyle(
-              fontSize: 20,
-              color: Theme.of(context).primaryColor,
+          children: <TextSpan>[
+            TextSpan(
+              text: subTitle,
+              style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

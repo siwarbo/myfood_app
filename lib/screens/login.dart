@@ -1,57 +1,15 @@
+// login.dart
 import 'package:flutter/material.dart';
+import 'package:myfood_app/screens/signup.dart';
 import 'package:myfood_app/widget/haveaccountornot.dart';
 import 'package:myfood_app/widget/mybutton.dart';
 import 'package:myfood_app/widget/mypasswordtextformfield.dart';
 import 'package:myfood_app/widget/mytextformfield.dart';
 import 'package:myfood_app/widget/toptitle.dart';
 
-class Login extends StatefulWidget {
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  final TextEditingController email = TextEditingController();
-
-  final TextEditingController password = TextEditingController();
-
-  static String p =
-      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-  static RegExp regExp = new RegExp(p);
-
-  void validation(BuildContext context) {
-    if (email.text.isEmpty && password.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Both Fields Are Empty"),
-        ),
-      );
-    } else if (email.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Email Is Empty"),
-        ),
-      );
-    } else if (!regExp.hasMatch(email.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Email Is Not Valid "),
-        ),
-      );
-    } else if (password.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Password Is Empty"),
-        ),
-      );
-    } else if (password.text.length < 8) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Password Is Too Short"),
-        ),
-      );
-    }
-  }
+class Login extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +17,8 @@ class _LoginState extends State<Login> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromARGB(255, 243, 174, 174),
       body: SafeArea(
-        child: Builder(
-          builder: (context) => Container(
+        child: SingleChildScrollView(
+          child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
@@ -68,41 +26,79 @@ class _LoginState extends State<Login> {
                   subsTitle: "Welcome Back!",
                   title: "Login",
                 ),
-                Center(
-                  child: Container(
-                    height: 300,
-                    width: double.infinity,
-                    color: Colors.white12,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        MyTextFormField(
-                          title: "Email",
-                          controller: email,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        MyPasswordTextField(
-                            title: "Password", controller: password),
-                      ],
-                    ),
-                  ),
-                ),
-                MyButton(
-                  name: "Login",
-                  onPressed: () {
-                    validation(context);
-                  },
-                ),
-                SizedBox(
-                  height: 10,
+                LoginForm(
+                  emailController: emailController,
+                  passwordController: passwordController,
                 ),
                 HaveAccountOrNot(
-                    title: "I Don't Have An Account", subTitle: "Sign Up"),
+                  title: "I Don't Have An Account",
+                  subTitle: "Sign Up",
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (ctx) => SignUp(onLogin: () {
+                                Navigator.of(ctx).pop(); // Pop SignUp page
+                              })),
+                    );
+                  },
+                ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginForm extends StatelessWidget {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  LoginForm({
+    required this.emailController,
+    required this.passwordController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        height: 300,
+        width: double.infinity,
+        color: Colors.white12,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyTextFormField(
+              title: "Email",
+              controller: emailController,
+            ),
+            SizedBox(height: 10),
+            MyPasswordTextField(
+              title: "Password",
+              controller: passwordController,
+            ),
+            SizedBox(height: 20),
+            MyButton(
+              name: "Login",
+              onPressed: () {
+                String email = emailController.text.trim();
+                String password = passwordController.text.trim();
+
+                if (email.isEmpty || password.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Email and password are required."),
+                    ),
+                  );
+                  return;
+                }
+
+                // Add login logic here
+              },
+            ),
+          ],
         ),
       ),
     );

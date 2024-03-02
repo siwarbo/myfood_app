@@ -11,7 +11,7 @@ class MyTextFormField extends StatelessWidget {
     
     return TextFormField(
       controller: controller,
-      obscureText: true,
+      
       decoration: InputDecoration(
         fillColor: Color.fromARGB(255, 182, 127, 145),
         filled: true,
